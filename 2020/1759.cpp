@@ -1,10 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <algorithm>
-
-using namespace std;
 /*
 바로 어제 최백준 조교가 방 열쇠를 주머니에 넣은 채 깜빡하고 서울로 가 버리는 황당한 상황에 직면한 조교들은, 
 702호에 새로운 보안 시스템을 설치하기로 하였다. 이 보안 시스템은 열쇠가 아닌 암호로 동작하게 되어 있는 시스템이다.
@@ -17,6 +10,13 @@ using namespace std;
 이 알파벳을 입수한 민식, 영식 형제는 조교들의 방에 침투하기 위해 암호를 추측해 보려고 한다. 
 C개의 문자들이 모두 주어졌을 때, 가능성 있는 암호들을 모두 구하는 프로그램을 작성하시오.
 */
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
 int checkVow(bool arr[]) {
 	int value = 0;
 	for (int i = 0; i < 26; i++) {
@@ -31,7 +31,9 @@ int checkCons(bool arr[]) {
 	for (int i = 0; i < 26; i++) {
 		if (i == 0 || i == 4 || i == 8 || i == 14 || i == 20) {
 		}
-		else value++;
+		else {
+			if (arr[i] == true) value++;
+		}
 	}
 	return value;
 }
@@ -55,7 +57,6 @@ int main() {
 	}
 	do {
 		bool cons[26] = { false };
-
 		int bvalue = 0;
 		int avalue = 0;
 		for (int i = 0; i < num2; i++) {
@@ -65,15 +66,15 @@ int main() {
 		}
 		avalue = checkCons(cons); //자음
 		bvalue = checkVow(cons); //모음
-		
+
 		if (avalue >= 2 && bvalue >= 1) {
 			for (int i = 0; i < num2; i++) {
 				if (!beta[i]) {
 					cout << alpa[i];
 				}
 			}
-			cout << '\n';
-		}		
+			cout << endl;
+		}
 	} while (next_permutation(beta, beta + num2));
 
 	return 0;
